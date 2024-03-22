@@ -9,7 +9,7 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: Color(0xFF1C1C1C),
       body: Center(
         child: Container(
-          width: 400,
+          width: 350,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -25,11 +25,11 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
                   decoration: InputDecoration(
-                    labelText: "Email",
+                    labelText: "CPF",
                     labelStyle: TextStyle(color: Colors.white),
-                    border: OutlineInputBorder(
+                    enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Color(0xFF870B00)),
+                      borderSide: BorderSide(color: Colors.white),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -45,9 +45,9 @@ class LoginScreen extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: "Senha",
                     labelStyle: TextStyle(color: Colors.white),
-                    border: OutlineInputBorder(
+                    enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Color(0xFF870B00)),
+                      borderSide: BorderSide(color: Colors.white),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -76,40 +76,52 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Não tem conta? Crie uma aqui',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Não tem conta? Crie uma ',
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Esqueci a senha',
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'aqui',
                         style: TextStyle(
-                            color: Color(0xFF870B00),
+                          color: Color(0xFF870B00),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
-        ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Esqueci a senha',
+                  style: TextStyle(
+                    color: Color(0xFF870B00),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
