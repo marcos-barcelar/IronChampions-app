@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class LoginScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
+                  style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: "CPF",
                     labelStyle: TextStyle(color: Colors.white),
@@ -37,11 +39,19 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   cursorColor: Color(0xFF870B00),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(11),
+                    _CpfInputFormatter(),
+                  ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: "Senha",
                     labelStyle: TextStyle(color: Colors.white),
@@ -123,6 +133,29 @@ class LoginScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _CpfInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    final text = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
+    final newText = StringBuffer();
+
+    for (int i = 0; i < text.length; i += 1) {
+      if (i == 3 || i == 6) {
+        newText.write('.');
+      }
+      if (i == 9) {
+        newText.write('-');
+      }
+      newText.write(text[i]);
+    }
+
+    return TextEditingValue(
+      text: newText.toString(),
+      selection: TextSelection.collapsed(offset: newText.length),
     );
   }
 }
