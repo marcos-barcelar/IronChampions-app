@@ -12,20 +12,18 @@ class ProfileScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () {
-          },
+          onPressed: () {},
         ),
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app),
-            onPressed: () {
-            },
+            onPressed: () {},
           ),
         ],
       ),
       body: Center(
         child: Container(
-          width: 350,
+          width: 250,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,17 +32,20 @@ class ProfileScreen extends StatelessWidget {
                 'assets/profile.png',
                 height: 200,
               ),
+              SizedBox(height: 20),
               Column(
                 children: [
-                  _buildTextWithBottomBorder('Nome'),
+                  _buildTextWithHorizontalBorder('Nome'),
                   SizedBox(height: 20),
-                  _buildTextWithBottomBorder('Idade'),
+                  _buildTextWithHorizontalBorder('Idade'),
                   SizedBox(height: 20),
-                  _buildTextWithBottomBorder('Gênero'),
+                  _buildTextWithHorizontalBorder('Gênero'),
                   SizedBox(height: 20),
-                  _buildTextWithBottomBorder('CPF'),
+                  _buildTextWithHorizontalBorder('CPF'),
                 ],
               ),
+              SizedBox(height: 20),
+              _buildEditButton(),
             ],
           ),
         ),
@@ -52,17 +53,49 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTextWithBottomBorder(String text) {
+  Widget _buildTextWithHorizontalBorder(String text) {
     return Container(
-      padding: EdgeInsets.only(bottom: 5),
+      padding: EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(width: 1.0, color: Color(0xFF870B00)),
+        border: Border(bottom: BorderSide(width: 2.0, color: Color(0xFF870B00))),
+      ),
+      child: Center(
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 20, color: Colors.white),
         ),
       ),
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 20, color: Colors.white),
+    );
+  }
+
+  Widget _buildEditButton() {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        width: 150,
+        height: 45,
+        child: TextButton.icon(
+          onPressed: () {
+
+          },
+          style: TextButton.styleFrom(
+            backgroundColor: Color(0xFF870B00),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+          ),
+          icon: Icon(
+            Icons.edit,
+            color: Colors.white,
+          ),
+          label: Text(
+            'Editar',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
       ),
     );
   }
 }
+
+
