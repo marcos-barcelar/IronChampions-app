@@ -50,6 +50,36 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          height: 60.0,
+          color: Color(0xFF1C1C1C),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Ver lista da ',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'usuarios',
+                        style: TextStyle(
+                          color: Color(0xFF870B00),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -75,9 +105,7 @@ class ProfileScreen extends StatelessWidget {
         width: 150,
         height: 45,
         child: TextButton.icon(
-          onPressed: () {
-
-          },
+          onPressed: () {},
           style: TextButton.styleFrom(
             backgroundColor: Color(0xFF870B00),
             shape: RoundedRectangleBorder(
@@ -97,5 +125,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-
-
