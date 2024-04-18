@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ironchampions_gym/screens/edit_screen.dart';
 import 'package:ironchampions_gym/screens/insert_screen.dart';
 import 'package:ironchampions_gym/screens/login_screen.dart';
 import 'package:ironchampions_gym/screens/primary_screen.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: InsertScreen(),
+      home: EditScreen(),
     );
   }
 }

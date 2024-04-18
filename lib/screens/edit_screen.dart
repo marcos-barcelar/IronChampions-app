@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class InsertScreen extends StatelessWidget {
-  const InsertScreen({Key? key}) : super(key: key);
+class EditScreen extends StatelessWidget {
+  const EditScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class InsertScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Criar treino',
+          'Editar treino',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -380,7 +380,7 @@ class InsertScreen extends StatelessWidget {
                 child: Container(
                   width: 150,
                   alignment: Alignment.center,
-                  child: Text('Cadastrar'),
+                  child: Text('Editar'),
                 ),
               ),
             ),
