@@ -27,6 +27,8 @@ class Users extends StatefulWidget {
 class _UsersState extends State<Users> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      child: Text('id: ${widget.id}, name: ${widget.name}, dtNascimento: ${widget.dtNascimento}, genero: ${widget.genero}, cpf: ${widget.cpf}, senha: ${widget.senha}'),
+    );
   }
 }
