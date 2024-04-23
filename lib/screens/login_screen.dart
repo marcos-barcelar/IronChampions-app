@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ironchampions_gym/screens/primary_screen.dart';
+import 'package:ironchampions_gym/screens/register_screen.dart';
+import 'package:ironchampions_gym/database/users_dao.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String? cpf;
+    String? senha;
+
     return Scaffold(
       backgroundColor: Color(0xFF1C1C1C),
       body: Center(
@@ -26,6 +32,7 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
                   style: TextStyle(color: Colors.white),
+                  onChanged: (value) => cpf = value,
                   decoration: InputDecoration(
                     labelText: "CPF",
                     labelStyle: TextStyle(color: Colors.white),
@@ -51,6 +58,7 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
                   style: TextStyle(color: Colors.white),
+                  onChanged: (value) => senha = value,
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: "Senha",
@@ -71,7 +79,33 @@ class LoginScreen extends StatelessWidget {
                 height: 20,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  if (cpf == null || cpf!.isEmpty || senha == null || senha!.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Por favor, preencha todos os campos.'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  } else {
+
+                    bool isAuthenticated = await UsersDao().login(cpf!, senha!);
+                    if (isAuthenticated) {
+
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => PrimaryScreen()),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('CPF ou senha incorretos.'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    }
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFF870B00),
                   shape: RoundedRectangleBorder(
@@ -97,7 +131,12 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RegisterScreen()),
+                  );
+                },
                 child: RichText(
                   text: TextSpan(
                     text: 'Não tem conta? Crie uma ',

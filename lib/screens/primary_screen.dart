@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ironchampions_gym/screens/profile_screen.dart';
 
 class PrimaryScreen extends StatefulWidget {
   const PrimaryScreen({Key? key}) : super(key: key);
@@ -18,7 +19,13 @@ class _PrimaryScreenState extends State<PrimaryScreen> {
         elevation: 0,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()),
+              );
+            },
             icon: Icon(Icons.account_circle),
           ),
         ],

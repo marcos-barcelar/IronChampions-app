@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ironchampions_gym/main.dart';
 import 'package:ironchampions_gym/database/users_dao.dart';
 import 'package:ironchampions_gym/components/users.dart';
-import 'login_screen.dart'; // Importe a tela de login
+import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -21,75 +20,82 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _nameController = TextEditingController();
 
   _saveToDatabase() async {
+    if (_nameController.text.isEmpty ||
+        _selectedDate == null ||
+        _selectedGender == null ||
+        _cpfController.text.isEmpty ||
+        _passwordController.text.isEmpty ||
+        _confirmPasswordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Por favor, preencha todos os campos.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
     String name = _nameController.text;
-    String dtNascimento = _selectedDate != null
-        ? "${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}"
-        : "";
-    String genero = _selectedGender ?? "";
+    String dtNascimento =
+        "${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}";
+    String genero = _selectedGender!;
     String cpf = _cpfController.text;
     String senha = _passwordController.text;
     String confirmarSenha = _confirmPasswordController.text;
 
-    if (name.isNotEmpty &&
-        dtNascimento.isNotEmpty &&
-        genero.isNotEmpty &&
-        cpf.isNotEmpty &&
-        senha.isNotEmpty &&
-        senha == confirmarSenha) {
-      Users user = Users(
-        id: 0,
-        name: name,
-        dtNascimento: dtNascimento,
-        genero: genero,
-        cpf: cpf,
-        senha: senha,
-      );
-
-      try {
-        await UsersDao().save(user);
-
-        _nameController.clear();
-        _cpfController.clear();
-        _passwordController.clear();
-        _confirmPasswordController.clear();
-        setState(() {
-          _selectedDate = null;
-          _selectedGender = null;
-        });
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Dados salvos com sucesso!'),
-            duration: Duration(seconds: 2),
-          ),
-        );
-
-
-        await Future.delayed(Duration(seconds: 2));
-
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
-        );
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-                'Erro ao salvar os dados. Por favor, tente novamente.'),
-            duration: Duration(seconds: 2),
-          ),
-        );
-        print('Erro ao salvar os dados: $e');
-      }
-    } else {
+    if (senha != confirmarSenha) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-              'Os campos de senha e confirmação de senha são diferentes ou estão vazios.'),
+          content: Text('Os campos de senha e confirmação de senha são diferentes.'),
           duration: Duration(seconds: 2),
         ),
       );
+      return;
+    }
+
+    Users user = Users(
+      id: 0,
+      name: name,
+      dtNascimento: dtNascimento,
+      genero: genero,
+      cpf: cpf,
+      senha: senha,
+    );
+
+    try {
+      await UsersDao().save(user);
+
+      _nameController.clear();
+      _cpfController.clear();
+      _passwordController.clear();
+      _confirmPasswordController.clear();
+      setState(() {
+        _selectedDate = null;
+        _selectedGender = null;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Dados salvos com sucesso!'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+
+      await Future.delayed(Duration(seconds: 2));
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+              'Erro ao salvar os dados. Por favor, tente novamente.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      print('Erro ao salvar os dados: $e');
     }
   }
 
@@ -203,6 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(11),
+                      _CpfInputFormatter(),
                     ],
                     decoration: InputDecoration(
                       labelText: "CPF",
@@ -291,7 +298,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
                 child: RichText(
                   text: TextSpan(
                     text: 'Já tem conta? Entre ',
@@ -328,5 +340,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
         _selectedDate = picked;
       });
     }
+  }
+}
+
+class _CpfInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final text = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
+    final newText = StringBuffer();
+
+    for (int i = 0; i < text.length; i += 1) {
+      if (i == 3 || i == 6) {
+        newText.write('.');
+      }
+      if (i == 9) {
+        newText.write('-');
+      }
+      newText.write(text[i]);
+    }
+
+    return TextEditingValue(
+      text: newText.toString(),
+      selection: TextSelection.collapsed(offset: newText.length),
+    );
   }
 }
