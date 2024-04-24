@@ -88,10 +88,8 @@ class LoginScreen extends StatelessWidget {
                       ),
                     );
                   } else {
-
                     bool isAuthenticated = await UsersDao().login(cpf!, senha!);
                     if (isAuthenticated) {
-
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => PrimaryScreen()),

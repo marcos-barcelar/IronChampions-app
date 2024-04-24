@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:ironchampions_gym/database/database.dart';
 import 'package:ironchampions_gym/components/users.dart';
@@ -20,7 +19,11 @@ class UsersDao {
   static const String _cpf = 'cpf';
   static const String _senha = 'senha';
 
-  static int? _loggedInUserId; // Variável estática para armazenar o ID do usuário logado
+  static String? _loggedInUserCPF;
+
+  static String getLoggedInUserCPF() {
+    return _loggedInUserCPF!;
+  }
 
   Future<int> save(Users user) async {
     final Database bancoDeDados = await getDatabase();
@@ -87,7 +90,7 @@ class UsersDao {
   Future<bool> login(String cpf, String senha) async {
     List<Users> users = await findUserByCPF(cpf);
     if (users.isNotEmpty && users[0].senha == senha) {
-      _loggedInUserId = users[0].id; // Armazena o ID do usuário logado
+      _loggedInUserCPF = cpf;
       return true;
     } else {
       return false;
@@ -101,9 +104,9 @@ class UsersDao {
       where: '$_cpf = ?',
       whereArgs: [cpf],
     );
-    if (_loggedInUserId != null) {
-      // Retorna apenas o usuário logado
-      return toList(result.where((user) => user[_id] == _loggedInUserId).toList());
+    if (_loggedInUserCPF != null) {
+
+      return toList(result.where((user) => user[_cpf] == _loggedInUserCPF).toList());
     } else {
       return toList(result);
     }

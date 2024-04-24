@@ -7,7 +7,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String cpf = ''; // Aqui você precisa obter o CPF do usuário logado de alguma forma
+    final String cpf = UsersDao.getLoggedInUserCPF();
 
     return FutureBuilder<List<Users>>(
       future: UsersDao().findUserByCPF(cpf),
