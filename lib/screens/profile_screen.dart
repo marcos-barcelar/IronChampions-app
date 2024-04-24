@@ -7,10 +7,10 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int userId = 2;
+    final String cpf = ''; // Aqui você precisa obter o CPF do usuário logado de alguma forma
 
     return FutureBuilder<List<Users>>(
-      future: UsersDao().find(userId),
+      future: UsersDao().findUserByCPF(cpf),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());

@@ -20,6 +20,8 @@ class UsersDao {
   static const String _cpf = 'cpf';
   static const String _senha = 'senha';
 
+  static int? _loggedInUserId; // Variável estática para armazenar o ID do usuário logado
+
   Future<int> save(Users user) async {
     final Database bancoDeDados = await getDatabase();
     var itemExists = await find(user.id);
@@ -85,6 +87,7 @@ class UsersDao {
   Future<bool> login(String cpf, String senha) async {
     List<Users> users = await findUserByCPF(cpf);
     if (users.isNotEmpty && users[0].senha == senha) {
+      _loggedInUserId = users[0].id; // Armazena o ID do usuário logado
       return true;
     } else {
       return false;
@@ -98,6 +101,11 @@ class UsersDao {
       where: '$_cpf = ?',
       whereArgs: [cpf],
     );
-    return toList(result);
+    if (_loggedInUserId != null) {
+      // Retorna apenas o usuário logado
+      return toList(result.where((user) => user[_id] == _loggedInUserId).toList());
+    } else {
+      return toList(result);
+    }
   }
 }
