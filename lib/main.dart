@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => PrimaryScreen(),
         '/profile': (context) => ProfileScreen(),
         '/profileEdit': (context) => ProfileEditScreen(),
+        '/insert': (context) => InsertScreen(),
       },
     );
   }

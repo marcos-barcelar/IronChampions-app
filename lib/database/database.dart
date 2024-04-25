@@ -1,4 +1,5 @@
 import 'package:ironchampions_gym/database/users_dao.dart';
+import 'package:ironchampions_gym/database/training_dao.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 

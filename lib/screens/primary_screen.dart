@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ironchampions_gym/screens/profile_screen.dart';
+import 'package:ironchampions_gym/screens/insert_screen.dart';
 
 class PrimaryScreen extends StatefulWidget {
   const PrimaryScreen({Key? key}) : super(key: key);
@@ -187,7 +188,10 @@ class _PrimaryScreenState extends State<PrimaryScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => InsertScreen()),
+          );
         },
         backgroundColor: Color(0xFF870B00),
         child: Icon(Icons.add),

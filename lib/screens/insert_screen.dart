@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ironchampions_gym/screens/profile_screen.dart';
 
 class InsertScreen extends StatelessWidget {
   const InsertScreen({Key? key}) : super(key: key);
@@ -12,7 +13,9 @@ class InsertScreen extends StatelessWidget {
         toolbarHeight: 60,
         elevation: 0,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: Icon(
             Icons.arrow_back,
             color: Colors.white,
@@ -25,7 +28,12 @@ class InsertScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()),
+              );
+            },
             icon: Icon(
               Icons.account_circle,
               color: Colors.white,
