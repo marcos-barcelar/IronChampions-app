@@ -105,10 +105,19 @@ class UsersDao {
       whereArgs: [cpf],
     );
     if (_loggedInUserCPF != null) {
-
       return toList(result.where((user) => user[_cpf] == _loggedInUserCPF).toList());
     } else {
       return toList(result);
     }
+  }
+
+  Future<int> update(Users user) async {
+    final Database bancoDeDados = await getDatabase();
+    return await bancoDeDados.update(
+      _tableUsers,
+      toMap(user),
+      where: '$_id = ?',
+      whereArgs: [user.id],
+    );
   }
 }

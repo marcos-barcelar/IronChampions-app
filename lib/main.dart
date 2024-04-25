@@ -3,6 +3,7 @@ import 'package:ironchampions_gym/screens/edit_screen.dart';
 import 'package:ironchampions_gym/screens/insert_screen.dart';
 import 'package:ironchampions_gym/screens/login_screen.dart';
 import 'package:ironchampions_gym/screens/primary_screen.dart';
+import 'package:ironchampions_gym/screens/profileEdit_screen.dart';
 import 'package:ironchampions_gym/screens/profile_screen.dart';
 import 'package:ironchampions_gym/screens/register_screen.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/home': (context) => PrimaryScreen(),
         '/profile': (context) => ProfileScreen(),
+        '/profileEdit': (context) => ProfileEditScreen(),
       },
     );
   }

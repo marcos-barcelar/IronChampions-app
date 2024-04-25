@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ironchampions_gym/database/users_dao.dart';
 import 'package:ironchampions_gym/components/users.dart';
+import 'package:ironchampions_gym/screens/profileEdit_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -66,7 +67,7 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 20),
-                      _buildEditButton(),
+                      _buildEditButton(context),
                     ],
                   ),
                 ),
@@ -113,14 +114,19 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildEditButton() {
+  Widget _buildEditButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
         width: 150,
         height: 45,
         child: TextButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfileEditScreen()),
+            );
+          },
           style: TextButton.styleFrom(
             backgroundColor: Color(0xFF870B00),
             shape: RoundedRectangleBorder(
