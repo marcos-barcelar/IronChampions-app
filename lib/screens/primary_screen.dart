@@ -35,34 +35,33 @@ class _PrimaryScreenState extends State<PrimaryScreen> {
       body: Center(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Fichas de treinos',
+         Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'Fichas de treinos',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              SizedBox(height: 20),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Text(
+                    'Olá, Aluno',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 30,
                       color: Colors.white,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: Text(
-                        'Olá, Aluno',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                ),
+              ),
                   Theme(
                     data: Theme.of(context).copyWith(
                       canvasColor: Colors.black,

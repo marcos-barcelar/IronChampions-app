@@ -445,8 +445,6 @@ class InsertScreen extends StatelessWidget {
                       String domingo = _domingoController.text;
                       String Tdomingo = _TdomingoController.text;
 
-                      // Repita para os outros campos do formulário
-
                       // Criar um novo objeto Trainings com os dados capturados
                       final newTraining = Trainings(
                         id: -1, // Deixe o ID como null para que seja gerado automaticamente
@@ -465,19 +463,17 @@ class InsertScreen extends StatelessWidget {
                         Tsabado: Tsabado,
                         domingo: domingo,
                         Tdomingo: Tdomingo,
-
-                        // Preencha os outros campos de acordo
-
                       );
 
                       final trainingDao = TrainingDao();
-                      await trainingDao.insertTraining(newTraining); // Inserir no banco de dados
+                      await trainingDao.insertTraining(newTraining); // Aqui você insere o novo treinamento no banco de dados
 
                       Navigator.pop(context); // Retorna à página anterior
                       Navigator.pushReplacement( // Substitui a rota atual pela nova rota
-                          context,
-                          MaterialPageRoute(builder: (context) => PrimaryScreen()),
-                      );}
+                        context,
+                        MaterialPageRoute(builder: (context) => PrimaryScreen()),
+                      );
+                    }
                   },
                   child: Text('Salvar'),
                 ),

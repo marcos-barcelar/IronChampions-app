@@ -131,9 +131,14 @@ class TrainingDao {
   }
   Future<void> insertTraining(Trainings training) async {
     final db = await getDatabase();
-    await db.insert(_tableTraining, _toMap(training));
+    try {
+      await db.insert(_tableTraining, _toMap(training));
+      print('Inserção bem-sucedida: $training');
+    } catch (e) {
+      print('Erro ao inserir treinamento: $e');
+    }
   }
-
+  
   Future<int> update(Trainings training) async {
     final Database bancoDeDados = await getDatabase();
     return await bancoDeDados.update(
